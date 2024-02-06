@@ -10,7 +10,7 @@ def get_default_settings():
     settings["filter"] = ['read','write']
     settings["type"] = []
     settings["dpi"] = 200
-    settings["percentile"] = 99.99
+    settings["percentile"] = None
     settings["moving_average"] = None
     settings["max_z"] = None
     settings["min_lat"] = 0

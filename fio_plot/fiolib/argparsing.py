@@ -143,9 +143,9 @@ def set_arguments(settings):
         "-p",
         "--percentile",
         help="\
-            Calculate the percentile, default 99.99th.",
+            Calculate the percentile, in addition to 0.01th, 50th, \
+            and 99.99th.",
         nargs="?",
-        default=settings["percentile"],
         type=float,
     )
     ag.add_argument(
