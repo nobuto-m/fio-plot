@@ -180,23 +180,33 @@ def create_single_label(settings, item, rw, supportdata):
         "nj": item["numjobs"],
         "mean": item[rw]["mean"],
         "std%": item[rw]["stdv"],
-        f"P{settings['percentile']}": item[rw]["percentile"],
+        "P0.01": item[rw]["percentiles"][0.01],
+        "P50.0": item[rw]["percentiles"][50.0],
+        "P99.99": item[rw]["percentiles"][99.99],
     }
+
+    if settings["percentile"]:
+        p_setting = settings["percentile"]
+        labelset.update({f"P{p_setting}": item[rw]["percentiles"][p_setting]})
     # pprint.pprint(labelset)
     supportdata["labels"].append(labelset)
 
 
 def generate_labelset(settings, supportdata):
     master_padding = {
-        "name": 0,
+        "name": 4,
         "rw": 5,
         "type": 4,
         "qd": 2,
         "nj": 2,
-        "mean": 0,
-        "std%": 0,
-        f"P{settings['percentile']}": 0,
+        "mean": 4,
+        "std%": 4,
+        "P0.01": 5,
+        "P50.0": 5,
+        "P99.99": 6,
     }
+    if settings['percentile']:
+        master_padding.update({f"P{settings['percentile']}": 5})
 
     for label in supportdata["labels"]:
         for key in label.keys():
@@ -224,7 +234,7 @@ def generate_labelset(settings, supportdata):
     values.insert(0, header)
 
     ncol = 1
-    if len(values) > 3:
+    if len(values) > 3 and not settings["xlabel_single_column"]:
         ncol = 2
         number = len(values)
         position = int(number / 2) + 1

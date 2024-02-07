@@ -306,9 +306,18 @@ def process_dataset(settings, dataset):
                     max = np.max(item[rw]["yvalues"])
                     mean = np.mean(item[rw]["yvalues"])
                     stdv = round((np.std(item[rw]["yvalues"]) / mean) * 100, 2)
-                    percentile = round(
-                        np.percentile(item[rw]["yvalues"], settings["percentile"]), 2
-                    )
+                    percentiles = {}
+                    for p in 0.01, 50.0, 99.99:
+                        percentiles[p] = round(
+                            np.percentile(item[rw]["yvalues"], p), 2
+                        )
+                    if settings["percentile"]:
+                        percentiles[settings["percentile"]] = round(
+                            np.percentile(
+                                item[rw]["yvalues"], settings["percentile"]
+                            ),
+                            2,
+                        )
 
                     if mean > 1:
                         mean = round(mean, 2)
@@ -317,17 +326,18 @@ def process_dataset(settings, dataset):
                     if mean >= 20:
                         mean = int(round(mean, 0))
 
-                    if percentile > 1:
-                        percentile = round(percentile, 2)
-                    if percentile <= 1:
-                        percentile = round(percentile, 3)
-                    if percentile >= 20:
-                        percentile = int(round(percentile, 0))
+                    for k in percentiles.keys():
+                        if percentiles[k] > 1:
+                            percentiles[k] = round(percentiles[k], 2)
+                        if percentiles[k] <= 1:
+                            percentiles[k] = round(percentiles[k], 3)
+                        if percentiles[k] >= 20:
+                            percentiles[k] = int(round(percentiles[k], 0))
 
                     item[rw]["max"] = max
                     item[rw]["mean"] = mean
                     item[rw]["stdv"] = stdv
-                    item[rw]["percentile"] = percentile
+                    item[rw]["percentiles"] = percentiles
 
         final_list.append(item)
 

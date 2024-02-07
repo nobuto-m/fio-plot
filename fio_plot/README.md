@@ -39,7 +39,8 @@ Generic Settings:
   -D [DPI], --dpi [DPI]
                         The chart will be saved with this DPI setting. Higher means larger image.
   -p [PERCENTILE], --percentile [PERCENTILE]
-                        Calculate the percentile, default 99.99th.
+                        Calculate the percentile, in addition to 0.01th, 50th,
+                        and 99.99th.
   -r {read,write,randread,randwrite,randrw,trim,rw,readwrite,randtrim,trimwrite}, --rw {read,write,randread,randwrite,randrw,trim,rw,readwrite,randtrim,trimwrite}
                         Specifies the kind of data you want to graph.
   -m MAX_Z, --max-z MAX_Z

@@ -143,9 +143,9 @@ def set_arguments(settings):
         "-p",
         "--percentile",
         help="\
-            Calculate the percentile, default 99.99th.",
+            Calculate the percentile, in addition to 0.01th, 50th, \
+            and 99.99th.",
         nargs="?",
-        default=settings["percentile"],
         type=float,
     )
     ag.add_argument(
@@ -249,6 +249,14 @@ def set_arguments(settings):
                     segment are preserved. Used with -g.",
         type=int,
         default=settings["xlabel_segment_size"],
+    )
+    ag.add_argument(
+        "--xlabel-single-column",
+        help="\
+            Whether to force a single-column layout in the label table \
+                when the number of labels is more than 3.",
+        action="store_true",
+        default=settings["xlabel_single_column"],
     )
     ag.add_argument(
         "-w",

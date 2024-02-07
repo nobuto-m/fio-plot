@@ -10,7 +10,7 @@ def get_default_settings():
     settings["filter"] = ['read','write']
     settings["type"] = []
     settings["dpi"] = 200
-    settings["percentile"] = 99.99
+    settings["percentile"] = None
     settings["moving_average"] = None
     settings["max_z"] = None
     settings["min_lat"] = 0
@@ -19,6 +19,7 @@ def get_default_settings():
     settings["xlabel_depth"] = 0
     settings["xlabel_parent"] = 1
     settings["xlabel_segment_size"] = 1000
+    settings["xlabel_single_column"] = False
     settings["line_width"] = 1
     settings["group_bars"] = False
     settings["show_cpu"] = False
